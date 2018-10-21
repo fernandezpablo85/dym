@@ -58,7 +58,7 @@ func transposes(pairs []pair) []string {
 }
 
 func replaces(pairs []pair) []string {
-	letters := "abcdefghijklmnopqrstuvwxyz"
+	letters := "abcdefghijklmnopqrstuvwxyz "
 	rs := []string{}
 	for _, p := range pairs {
 		for _, l := range letters {
