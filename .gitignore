@@ -16,3 +16,5 @@ dym
 
 # Dependencies
 vendor/
+
+*.csv
