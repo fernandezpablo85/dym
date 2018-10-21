@@ -39,6 +39,14 @@ func benchmarkVariations(s string, b *testing.B) {
 	result = vs
 }
 
+func benchmarkVariations2(s string, b *testing.B) {
+	var vs []string
+	for i := 0; i < b.N; i++ {
+		vs = Variations2(s)
+	}
+	result = vs
+}
+
 func BenchmarkVariationsFive(b *testing.B) {
 	benchmarkVariations("pablo", b)
 }
@@ -53,4 +61,12 @@ func BenchmarkVariationsTwentyOne(b *testing.B) {
 
 func BenchmarkVariationsThirtyFive(b *testing.B) {
 	benchmarkVariations("san fernando del valle de catamarca", b)
+}
+
+func BenchmarkVariations2Five(b *testing.B) {
+	benchmarkVariations2("pablo", b)
+}
+
+func BenchmarkVariations2ThirtyFive(b *testing.B) {
+	benchmarkVariations2("san fernando del valle de catamarca", b)
 }

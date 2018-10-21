@@ -5,7 +5,7 @@ type pair struct {
 	second string
 }
 
-// Variations returns all 1 edit variations for the given string
+// Variations returns all 1 edit variations for the given string.
 func Variations(s string) []string {
 	variations := []string{}
 	pairs := pairs(s)
@@ -13,6 +13,15 @@ func Variations(s string) []string {
 	variations = append(variations, transposes(pairs)...)
 	variations = append(variations, replaces(pairs)...)
 	return variations
+}
+
+// Variations2 returns all 2 edit variations for the given string.
+func Variations2(s string) []string {
+	all := []string{}
+	for _, v := range Variations(s) {
+		all = append(all, Variations(v)...)
+	}
+	return all
 }
 
 func pairs(s string) []pair {
