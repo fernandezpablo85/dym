@@ -48,7 +48,7 @@ func benchmarkVariations2(s string, b *testing.B) {
 }
 
 func BenchmarkVariationsFive(b *testing.B) {
-	benchmarkVariations("pablo", b)
+	benchmarkVariations("pablo", b) // about 10µs
 }
 
 func BenchmarkVariationsTen(b *testing.B) {
@@ -64,9 +64,9 @@ func BenchmarkVariationsThirtyFive(b *testing.B) {
 }
 
 func BenchmarkVariations2Five(b *testing.B) {
-	benchmarkVariations2("pablo", b)
+	benchmarkVariations2("pablo", b) // about 20ms
 }
 
 func BenchmarkVariations2ThirtyFive(b *testing.B) {
-	benchmarkVariations2("san fernando del valle de catamarca", b)
+	benchmarkVariations2("san fernando del valle de catamarca", b) // about 1s
 }
