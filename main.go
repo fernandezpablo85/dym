@@ -49,19 +49,12 @@ func correct(c *cli.Context) error {
 		return fmt.Errorf("must provide name")
 	}
 	name = strings.ToLower(name)
-	vars := Variations(name)
-	nameCount := Dict[name]
 
-	maxVar := 0
-	alternative := ""
-	for _, v := range vars {
-		if Dict[v] > maxVar {
-			maxVar = Dict[v]
-			alternative = v
-		}
-	}
-	if maxVar > nameCount {
+	corrs := Corrections(name)
+	if len(corrs) > 0 {
+		alternative := corrs[0]
 		fmt.Printf("Did you mean '%s' ?\n", alternative)
 	}
+
 	return nil
 }
