@@ -16,7 +16,7 @@ func (l byFreq) Len() int {
 }
 
 func (l byFreq) Less(i, j int) bool {
-	return l[i].freq < l[j].freq
+	return l[i].freq > l[j].freq
 }
 
 func (l byFreq) Swap(i, j int) {
@@ -33,7 +33,7 @@ func Corrections(s string) []string {
 			alts = append(alts, alternative{word: v, freq: Dict[v]})
 		}
 	}
-	sort.Reverse(byFreq(alts))
+	sort.Sort(byFreq(alts))
 	ws := []string{}
 	for _, a := range alts {
 		ws = append(ws, a.word)
