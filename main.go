@@ -24,6 +24,12 @@ func main() {
 			Usage:  "make corrections based on given dict",
 			Action: correct,
 		},
+		{
+			Name:   "server",
+			Usage:  "start corrections http server",
+			Flags:  []cli.Flag{cli.StringFlag{Name: "port", Value: "8080", Usage: "http port"}},
+			Action: DymServer,
+		},
 	}
 	err := app.Run(os.Args)
 	if err != nil {
