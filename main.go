@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -29,6 +30,12 @@ func main() {
 			Usage:  "start corrections http server",
 			Flags:  []cli.Flag{cli.StringFlag{Name: "port", Value: "8080", Usage: "http port"}},
 			Action: DymServer,
+		},
+		{
+			Name:   "check",
+			Usage:  "check for corrections in a list of names",
+			Flags:  []cli.Flag{cli.StringFlag{Name: "file", Value: "", Usage: "file of names"}},
+			Action: check,
 		},
 	}
 	err := app.Run(os.Args)
@@ -62,5 +69,29 @@ func correct(c *cli.Context) error {
 		fmt.Printf("Did you mean '%s' ?\n", alternative)
 	}
 
+	return nil
+}
+
+func check(c *cli.Context) error {
+	file := c.String("file")
+	if len(file) <= 0 {
+		return fmt.Errorf("missing --file argument")
+	}
+	data, err := ioutil.ReadFile(file)
+	if err != nil {
+		return err
+	}
+	lines := strings.Split(string(data), "\n")
+	for _, l := range lines {
+		s := strings.TrimSpace(l)
+		s = strings.ToLower(s)
+		if len(s) == 0 {
+			continue
+		}
+		corrs := Corrections(s)
+		if len(corrs) > 0 {
+			fmt.Printf("would suggest '%s' for '%s'\n", corrs[0], s)
+		}
+	}
 	return nil
 }
