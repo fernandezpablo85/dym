@@ -2,6 +2,7 @@ package main
 
 import (
 	"sort"
+	"strings"
 )
 
 type alternative struct {
@@ -23,7 +24,7 @@ func (l byFreq) Swap(i, j int) {
 	l[i], l[j] = l[j], l[i]
 }
 
-// Corrections returns the possible corrections ordered by frequency or nil if none
+// Corrections returns the possible corrections ordered by frequency or nil if none.
 func Corrections(s string) []string {
 	vars := Variations(s)
 	sCount := Dict[s]
@@ -39,4 +40,22 @@ func Corrections(s string) []string {
 		ws = append(ws, a.word)
 	}
 	return ws
+}
+
+// Suggestion returns the best possible suggestion.
+func Suggestion(s string) string {
+	tks := TokenizeLowerCase(s)
+	suggestion := make([]string, len(tks), len(tks))
+	for i, t := range tks {
+		if len(t) < 3 || isFrequent(t) {
+			suggestion[i] = t
+		} else {
+			suggestion[i] = Corrections(t)[0]
+		}
+	}
+	return strings.Join(suggestion, " ")
+}
+
+func isFrequent(token string) bool {
+	return Dict[token] > 5
 }
