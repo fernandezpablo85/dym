@@ -44,18 +44,26 @@ func Corrections(s string) []string {
 
 // Suggestion returns the best possible suggestion.
 func Suggestion(s string) string {
+	if isFrequent(s) {
+		return s
+	}
 	tks := TokenizeLowerCase(s)
-	suggestion := make([]string, len(tks), len(tks))
+	suggestion := make([]string, len(tks))
 	for i, t := range tks {
 		if len(t) < 3 || isFrequent(t) {
 			suggestion[i] = t
 		} else {
-			suggestion[i] = Corrections(t)[0]
+			cs := Corrections(t)
+			if len(cs) > 0 {
+				suggestion[i] = cs[0]
+			} else {
+				suggestion[i] = t
+			}
 		}
 	}
 	return strings.Join(suggestion, " ")
 }
 
 func isFrequent(token string) bool {
-	return Dict[token] > 5
+	return Dict[token] >= 3
 }
