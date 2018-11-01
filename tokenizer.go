@@ -19,3 +19,8 @@ func TokenizeLowerCase(s string) []string {
 	}
 	return tokens
 }
+
+// RemoveMiddleSpaces removes extra spaces between words
+func RemoveMiddleSpaces(s string) string {
+	return strings.Join(Tokenize(s), " ")
+}
