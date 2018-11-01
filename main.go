@@ -88,9 +88,9 @@ func check(c *cli.Context) error {
 		if len(s) == 0 {
 			continue
 		}
-		corrs := Corrections(s)
-		if len(corrs) > 0 {
-			fmt.Printf("would suggest '%s' for '%s'\n", corrs[0], s)
+		sug := Suggestion(s)
+		if RemoveMiddleSpaces(sug) != RemoveMiddleSpaces(s) {
+			fmt.Printf("would suggest '%s' for '%s'\n", sug, s)
 		}
 	}
 	return nil
