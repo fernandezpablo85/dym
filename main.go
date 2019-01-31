@@ -63,10 +63,9 @@ func correct(c *cli.Context) error {
 	}
 	name = strings.ToLower(name)
 
-	corrs := Corrections(name)
-	if len(corrs) > 0 {
-		alternative := corrs[0]
-		fmt.Printf("Did you mean '%s' ?\n", alternative)
+	sug := Suggestion(name)
+	if sug != name {
+		fmt.Printf("Did you mean '%s' ?\n", sug)
 	}
 
 	return nil
